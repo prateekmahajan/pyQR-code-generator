@@ -21,21 +21,29 @@ def right_side_image(all_fields):
         font = ImageFont.truetype("./Arial.ttf", size_of_font, encoding="unic")
     except Exception as err:
         print_error(err)
-    qr_img = Image.open('temp.png', 'r')
+    qr_img = Image.open('temp.png')
+
+    # resize
+    qr_img = qr_img.resize((150,150))
 
     # creating an outside white canvas (a box)
     qr_img_w, qr_img_h = qr_img.size
-    sticker = Image.new('RGBA', (300, 150), (255, 255, 255, 255))
+    sticker = Image.new('RGBA', (330, 150), (255, 255, 255, 255))
     bg_w, bg_h = sticker.size
     offset = (5, (bg_h - qr_img_h) // 2)
     sticker.paste(qr_img, offset)
 
     # Add all_fields lines to the Canvas
     d = ImageDraw.Draw(sticker)
-    sticker_h_offset = int((155 - (5 * len(all_fields.split(':')[0]) / 2)) * 1)
+    sticker_h_offset = int((155 - (5 * len(all_fields.split(':')[0]) / 2)) * 1.3)
     d.multiline_text((sticker_h_offset, 15), '\n'.join(all_fields.split(':')), font=font, fill=(0, 0, 0))
     # need to use BOLD font family for Bold text
 
     # desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
     sticker.save(r"E:\Desktop\genQRs\\"+sticker_name)
     pass
+
+
+# text = 'AAABBBCCCDDDEEE:AAABBBCCCDDDEEE:AAABBBCCCDDDEEE:AAABBBCCCDDDEEE:AAABBBCCCDDDEEE:AAABBBCCCDDDEEE:AT22120476'.upper()
+# text = '266:0101DW500961N:DA055A:51222:01:AT22120476'
+# generate_qr(text,text)
