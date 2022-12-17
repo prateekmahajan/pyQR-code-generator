@@ -1,5 +1,5 @@
 import streamlit as st
-from utilites import *
+from utilities import *
 st.set_page_config(
     page_title="QR Generator",
     page_icon="🏿",
