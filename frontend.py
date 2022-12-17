@@ -1,5 +1,6 @@
 import streamlit as st
 from utilities import *
+import os
 
 st.set_page_config(
     page_title="QR Generator",
@@ -11,8 +12,9 @@ st.markdown("<h1 style='text-align: center; color: white;'>QR Generator</h1>", u
 
 with st.container():
     _, mid_col, _ = st.columns([1, 2, 1])
+
     with mid_col:
-        with st.form('Enter Product Details',clear_on_submit=True):
+        with st.form('Enter Product Details', clear_on_submit=False):
             field1 = st.text_input(label='field 1', placeholder='Enter Field Details Here')
             field2 = st.text_input(label='field 2', placeholder='Enter Field Details Here')
             field3 = st.text_input(label='field 3', placeholder='Enter Field Details Here')
@@ -35,6 +37,4 @@ with st.container():
                         st.success('QR Image Generated And Saved Successfully On your Device')
                     except Exception as e:
                         st.error("Something Went Wrong")
-    _, mid_col, _ = st.columns([1, 0.5, 1])
-    with mid_col:
-        st.image('./sticker.png')
+
