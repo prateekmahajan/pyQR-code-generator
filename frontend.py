@@ -1,5 +1,6 @@
 import streamlit as st
 from utilities import *
+
 st.set_page_config(
     page_title="QR Generator",
     page_icon="🏿",
@@ -19,6 +20,14 @@ with st.container():
         field7 = st.text_input(label='field 7', placeholder='Enter Field Details Here')
         submitted = st.form_submit_button("Generate QR")
         if submitted:
-            list_of_fields_for_qr_generation = [field1, field2, field3, field4, field5, field7]
-            str_for_qr = ':'.join(list_of_fields_for_qr_generation)
-            generate_qr(str_for_qr)
+            if len(field1) <= 0 or len(field2) <= 0 or len(field3) <= 0 or len(field4) <= 0 or len(field5) <= 0 or len(
+                    field6) <= 0 or len(field7) <= 0:
+                st.error('All Fields Are Mandatory')
+            else:
+                list_of_fields_for_qr_generation = [field1, field2, field3, field4, field5, field7]
+                str_for_qr = ':'.join(list_of_fields_for_qr_generation)
+                try:
+                    generate_qr(str_for_qr)
+                    st.success('QR Image Generated And Saved Successfully On your Device')
+                except Exception as e:
+                    st.error("Something Went Wrong")
