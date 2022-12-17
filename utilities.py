@@ -1,16 +1,21 @@
 from PIL import Image, ImageDraw, ImageFont
 from pystrich.datamatrix import DataMatrixEncoder
 
+
 def print_error(err):
     print(f"{type(err).__name__} was raised: {err}")
     pass
-def generate_qr(text):
+
+
+def generate_qr(text, all_fields):
     encoder = DataMatrixEncoder(text)
     encoder.save("QR.png")
-    right_side_image(text)
+    right_side_image(all_fields)
     pass
+
+
 def right_side_image(text):
-    sticker_name = 'sticker.png'
+    sticker_name = f'sticker-{text[-1]}.png'
     size_of_font = 16
     try:
         font = ImageFont.truetype("./Arial.ttf", size_of_font, encoding="unic")
@@ -27,11 +32,9 @@ def right_side_image(text):
 
     # Add text lines to the Canvas
     d = ImageDraw.Draw(sticker)
-    sticker_h_offset = int((155 - (5 * len(text.split(':')[0]) / 2))*1)
+    sticker_h_offset = int((155 - (5 * len(text.split(':')[0]) / 2)) * 1)
     d.multiline_text((sticker_h_offset, 15), '\n'.join(text.split(':')), font=font, fill=(0, 0, 0))
     # need to use BOLD font family for Bold text
 
     sticker.save(sticker_name)
     pass
-
-# generate_qr('266:0101DW500961N:DA055A:51222:01:AT22120476')
