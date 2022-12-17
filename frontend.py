@@ -26,6 +26,7 @@ with st.container():
             else:
                 list_of_fields_for_qr_generation = [field1, field2, field3, field4, field5, field7]
                 str_for_qr = ':'.join(list_of_fields_for_qr_generation)
+                # str_for_qr = '266:0101DW500961N:DA055A:51222:01:AT22120476'
                 try:
                     generate_qr(str_for_qr)
                     st.success('QR Image Generated And Saved Successfully On your Device')
